@@ -1,0 +1,12 @@
+schema_version = 1
+id = "ATTEMPT-0002"
+study = "STUDY-0001"
+track = "TRACK-A"
+owner = "coder-b"
+status = "active"
+created = "TEMPLATE"
+updated = "TEMPLATE"
+label = "Independent replica A2"
+flavor = "Independent implementation; simplify interfaces aggressively; challenge assumptions in replica A1 without copying its code."
+independent_implementation = true
+experiment_dir = "ai-tools/workspaces/experiments/STUDY-0001/ATTEMPT-0002"

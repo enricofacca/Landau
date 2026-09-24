@@ -1,0 +1,19 @@
+schema_version = 1
+id = "STAGE-0001"
+title = "Initial development stage"
+status = "active"
+created = "TEMPLATE"
+updated = "TEMPLATE"
+base_ref = "TEMPLATE"
+inherits = []
+
+[goal]
+statement = "REPLACE: what this stage must establish or deliver."
+
+[inputs]
+technical_note = "ai-tools/research/stages/STAGE-0001/technical_note.md"
+development_plan = "ai-tools/research/stages/STAGE-0001/development_plan.md"
+
+[software]
+stable_base = "src/"
+reusable_prototypes = "ai-tools/workspaces/prototypes/"

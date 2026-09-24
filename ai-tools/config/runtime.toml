@@ -1,0 +1,52 @@
+schema_version = 2
+
+# Single source of truth for the local execution environment used by AI agents.
+# Project users do not need this file. All paths are interpreted from repo root.
+
+[environment]
+working_directory = "."
+python_executable = ".venv/bin/python"
+python_fallback = "python"
+activation_hint = "source .venv/bin/activate"
+install_hint = "python -m pip install -e '.[dev]'"
+notes = "Use this Python environment for project code, public tests, demos, and AI research workspaces."
+
+[policy]
+declared_programs_are_shared_contract = true
+workspace_read = true
+workspace_write = true
+shell_execution = true
+network_by_default = false
+outside_workspace_write = false
+secrets_access = false
+# Repository policy is not a substitute for provider sandbox/permission settings.
+
+[programs.python]
+description = "Project Python interpreter"
+argv = ["{python}"]
+allow_extra_args = true
+
+[programs.test]
+description = "Public project test suite"
+argv = ["{python}", "-m", "pytest", "-q", "tests"]
+allow_extra_args = true
+
+[programs.ai_contract]
+description = "AI workbench contract/regression tests"
+argv = ["{python}", "-m", "pytest", "-q", "ai-tools/tests"]
+allow_extra_args = true
+
+[programs.status]
+description = "Regenerate AI research dashboard"
+argv = ["{python}", "ai-tools/scripts/workbench.py", "status"]
+allow_extra_args = false
+
+[programs.validate]
+description = "Validate AI research/workbench contract"
+argv = ["{python}", "ai-tools/scripts/workbench.py", "validate"]
+allow_extra_args = false
+
+[programs.git]
+description = "Git, for local inspection/diff/commit when project policy permits it"
+argv = ["git"]
+allow_extra_args = true

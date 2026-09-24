@@ -1,0 +1,25 @@
+schema_version = 1
+id = "STUDY-0001"
+title = "REPLACE: first hypothesis"
+status = "backlog"
+priority = 1
+owner = "shared"
+created = "TEMPLATE"
+updated = "TEMPLATE"
+stage = "STAGE-0001"
+artifact_disposition = "undecided"
+disposition_recommended = "undecided"
+disposition_approved_by = ""
+disposition_reason = ""
+competition = "COMP-0001"
+track = "TRACK-A"
+
+[hypothesis]
+statement = "REPLACE: a claim that can be supported or rejected."
+
+[decision_rule]
+validate_when = ["REPLACE: concrete acceptance criterion"]
+falsify_when = ["REPLACE: concrete rejection criterion"]
+
+[links]
+experiment_dir = "ai-tools/workspaces/experiments/STUDY-0001"

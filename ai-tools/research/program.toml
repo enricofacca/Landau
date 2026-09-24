@@ -1,0 +1,14 @@
+schema_version = 1
+
+[program]
+statement = "REPLACE: one sentence describing the research objective."
+
+[acceptance]
+require_reproducible_command = true
+require_failure_accounting = true
+require_committed_regression_tests_for_promoted_code = true
+require_tests_before_promotion = true
+
+[reporting]
+record_setup_cost = true
+record_environment_when_relevant = true

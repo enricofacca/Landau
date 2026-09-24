@@ -1,0 +1,50 @@
+schema_version = 2
+id = "COMP-0001"
+title = "REPLACE: compare two development approaches"
+status = "active"
+stage = "STAGE-0001"
+
+[question]
+statement = "REPLACE: which approach better satisfies the project objective under the same validation cases?"
+
+# Every track and every replica used for adjudication must report these on the
+# same cases before a dominance decision.
+[[metrics]]
+name = "primary_metric"
+direction = "minimize"
+required = true
+unit = "REPLACE"
+
+[[metrics]]
+name = "correctness_or_residual"
+direction = "minimize"
+required = true
+unit = "REPLACE"
+
+[evidence]
+minimum_comparable_runs_per_track = 3
+common_cases = ["REPLACE-case-1", "REPLACE-case-2"]
+require_committed_tests = true
+
+[replication]
+allow_multiple_attempts_per_track = true
+compare_attempts_within_track = true
+advisor_selects_reference_attempt = true
+workspace_isolation = "per_attempt"
+# Replicas may share the common spec/cases and advisor summaries, but each writes
+# only its own experimental workspace unless the advisor explicitly merges them.
+
+[dominance]
+primary_relative_margin = 0.10
+require_all_required_metrics = true
+require_advisor_review = true
+
+[[tracks]]
+id = "TRACK-A"
+study = "STUDY-0001"
+label = "Approach A"
+
+[[tracks]]
+id = "TRACK-B"
+study = "STUDY-0002"
+label = "Approach B"

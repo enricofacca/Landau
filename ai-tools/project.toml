@@ -1,0 +1,40 @@
+schema_version = 5
+
+[project]
+name = "CHANGE_ME"
+package = "project_code"
+description = "Replace with the project-specific objective."
+
+[workflow]
+terminal_study_states = ["validated", "falsified", "superseded", "outcompeted", "nonviable"]
+terminal_attempt_states = ["stopped", "outperformed", "nonviable"]
+promotion_state = "validated"
+advisor_poll_seconds = 30
+status_refresh_seconds = 2
+coder_pause_seconds = 2
+max_coder_stall_cycles_before_escalation = 3
+human_approval_required_for_disposition = true
+# Attempts are execution replicas. A coder keeps working while its attempt is
+# nonterminal and the parent study is nonterminal.
+
+[agents.advisor]
+backend = "custom"
+command_env = "ADVISOR_CMD"
+
+[[agents.coders]]
+id = "coder-a"
+backend = "codex"
+account_pool = "codex-pool"
+label = "Track A replica 1"
+
+[[agents.coders]]
+id = "coder-b"
+backend = "claude"
+account_pool = "claude-pool"
+label = "Track A replica 2"
+
+[[agents.coders]]
+id = "coder-c"
+backend = "antigravity"
+account_pool = "antigravity-pool"
+label = "Track B replica 1"

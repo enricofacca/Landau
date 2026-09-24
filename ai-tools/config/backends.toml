@@ -1,0 +1,36 @@
+schema_version = 1
+
+# Backend adapters are intentionally thin. Put provider/version-specific CLI flags
+# in the environment variables named below. Switching a coder backend does not
+# change the research protocol or its assignment.
+#
+# Batch commands must consume the generated prompt on stdin unless you change
+# prompt_transport. Interactive commands open a normal TUI/session in the repo.
+
+[backends.codex]
+label = "OpenAI Codex CLI"
+batch_command_env = "CODEX_BATCH_CMD"
+interactive_command_env = "CODEX_INTERACTIVE_CMD"
+prompt_transport = "stdin"
+permission_note = "Prefer a trusted-workspace/workspace-write profile; configure provider permissions outside this file if needed."
+
+[backends.claude]
+label = "Claude Code"
+batch_command_env = "CLAUDE_BATCH_CMD"
+interactive_command_env = "CLAUDE_INTERACTIVE_CMD"
+prompt_transport = "stdin"
+permission_note = "Use project/user Claude Code permission settings or allowedTools; keep the repo runtime policy unchanged."
+
+[backends.antigravity]
+label = "Google Antigravity"
+batch_command_env = "ANTIGRAVITY_BATCH_CMD"
+interactive_command_env = "ANTIGRAVITY_INTERACTIVE_CMD"
+prompt_transport = "stdin"
+permission_note = "Grant workspace read/write and allow the run_allowed.py command prefix in Antigravity permissions to reduce repeated prompts."
+
+[backends.custom]
+label = "Custom coding agent"
+batch_command_env = "CUSTOM_BATCH_CMD"
+interactive_command_env = "CUSTOM_INTERACTIVE_CMD"
+prompt_transport = "stdin"
+permission_note = "Configure any CLI that can work in the repository."

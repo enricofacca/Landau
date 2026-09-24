@@ -1,0 +1,8 @@
+schema_version = 1
+
+# [[runs]]
+# id = "RUN-0001"
+# command = "..."
+# artifact = "runs/STUDY-0001/RUN-0001/results.json"
+# git_commit = "..."
+# outcome = "..."

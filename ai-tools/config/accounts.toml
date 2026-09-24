@@ -1,0 +1,165 @@
+schema_version = 2
+
+# -----------------------------------------------------------------------------
+# EXAMPLE ACCOUNT REGISTRY -- EDIT THIS FILE AFTER CLONING THE KIT
+# -----------------------------------------------------------------------------
+# The example email addresses below are deliberately fake @example.com addresses. Claude intentionally repeats one fake email for Personal + Team.
+# Replace email_hint with the real account email you intend to use. The value is
+# DISPLAY-ONLY metadata: the workbench never sends it to a provider and never
+# uses it as a credential.
+#
+# NEVER put passwords, API keys, cookies, refresh tokens, auth.json contents,
+# keyring exports, or browser-session data in this repository.
+#
+# Authentication contexts live outside the repository:
+#   Codex       -> one CODEX_HOME per account, with file credential storage.
+#   Claude Code -> one CLAUDE_CONFIG_DIR per account.
+#   Antigravity -> one isolated launcher / OS-keyring context per account.
+#
+# The runner exports the generic WORKBENCH_ACCOUNT_* variables for every backend
+# and additionally injects CODEX_HOME / CLAUDE_CONFIG_DIR for the two strategies
+# it can safely express as environment variables.
+
+[policy]
+secrets_in_repository = false
+quota_exhausted_exit_code = 75
+automatic_failover = true
+require_pre_authenticated_profiles = true
+respect_provider_terms = true
+
+# -----------------------------------------------------------------------------
+# POOLS
+# Ordered pools are tried from first to last when a wrapper positively reports
+# quota/capacity exhaustion with exit code 75.
+# -----------------------------------------------------------------------------
+
+[[pools]]
+id = "codex-pool"
+backend = "codex"
+strategy = "ordered"
+profiles = ["codex-primary", "codex-secondary"]
+
+[[pools]]
+id = "claude-pool"
+backend = "claude"
+strategy = "ordered"
+profiles = ["claude-personal", "claude-team"]
+
+[[pools]]
+id = "antigravity-pool"
+backend = "antigravity"
+strategy = "ordered"
+profiles = ["antigravity-primary", "antigravity-secondary"]
+
+# -----------------------------------------------------------------------------
+# CODEX EXAMPLES
+# Replace the email hints. The auth_context paths may be kept as-is or renamed.
+# Before logging in, make sure each CODEX_HOME contains a config.toml with:
+#
+#   cli_auth_credentials_store = "file"
+#
+# Then authenticate each account once in the browser using its own CODEX_HOME.
+# -----------------------------------------------------------------------------
+
+[[profiles]]
+id = "codex-primary"
+backend = "codex"
+display_name = "Codex account 1 -- REPLACE ME"
+email_hint = "codex.one@example.com"
+selector = "primary"
+auth_strategy = "codex_home"
+auth_context = "~/.agent-accounts/codex/account-1"
+login_hint = 'CODEX_HOME="$HOME/.agent-accounts/codex/account-1" codex login'
+enabled = true
+notes = "Primary Codex subscription/account. Replace email_hint; authenticate this CODEX_HOME once via browser."
+
+[[profiles]]
+id = "codex-secondary"
+backend = "codex"
+display_name = "Codex account 2 -- REPLACE ME"
+email_hint = "codex.two@example.com"
+selector = "secondary"
+auth_strategy = "codex_home"
+auth_context = "~/.agent-accounts/codex/account-2"
+login_hint = 'CODEX_HOME="$HOME/.agent-accounts/codex/account-2" codex login'
+enabled = true
+notes = "Backup Codex subscription/account. Use only where the provider/account terms permit failover."
+
+# -----------------------------------------------------------------------------
+# CLAUDE CODE EXAMPLE: SAME EMAIL, TWO SUBSCRIPTION SCOPES
+# -----------------------------------------------------------------------------
+# This example intentionally uses the SAME fake email for both profiles. It
+# models a common setup where one Claude login has a personal Pro/Max plan and
+# also belongs to a separate Team workspace/subscription. The unique identity in
+# the workbench is profile.id + auth_context, NOT email_hint.
+#
+# During the one-time browser/OAuth login, select the intended scope/workspace
+# for each isolated CLAUDE_CONFIG_DIR.
+# -----------------------------------------------------------------------------
+
+[[profiles]]
+id = "claude-personal"
+backend = "claude"
+display_name = "Claude personal subscription -- REPLACE ME"
+email_hint = "claude.same.user@example.com"
+account_scope = "personal"
+workspace_hint = "Personal Pro/Max -- REPLACE ME"
+selector = "personal"
+auth_strategy = "claude_config_dir"
+auth_context = "~/.agent-accounts/claude/personal"
+login_hint = 'CLAUDE_CONFIG_DIR="$HOME/.agent-accounts/claude/personal" claude'
+enabled = true
+notes = "Same email may also own a Team seat. Authenticate this config dir against the personal subscription/scope."
+
+[[profiles]]
+id = "claude-team"
+backend = "claude"
+display_name = "Claude Team subscription -- REPLACE ME"
+email_hint = "claude.same.user@example.com"
+account_scope = "team"
+workspace_hint = "Example Research Team -- REPLACE ME"
+selector = "team"
+auth_strategy = "claude_config_dir"
+auth_context = "~/.agent-accounts/claude/team"
+login_hint = 'CLAUDE_CONFIG_DIR="$HOME/.agent-accounts/claude/team" claude'
+enabled = true
+notes = "Same login email as claude-personal, but authorize/select the Team workspace for this isolated config dir."
+
+# -----------------------------------------------------------------------------
+# ANTIGRAVITY EXAMPLES
+# Account-based Antigravity authentication is stored in the operating-system
+# keyring. The kit therefore does NOT copy/move tokens. Each profile points to a
+# launcher outside the repository that enters a separately authenticated OS
+# user/keyring/session context and then invokes `agy`.
+#
+# Typical Linux idea (adapt to your machine):
+#   ~/.local/bin/agy-account-1 -> sudo -u agy-account-1 -H agy "$@"
+#   ~/.local/bin/agy-account-2 -> sudo -u agy-account-2 -H agy "$@"
+#
+# On macOS/Windows use an equivalent isolated user/keychain/credential-manager
+# setup that you are authorized to use.
+# -----------------------------------------------------------------------------
+
+[[profiles]]
+id = "antigravity-primary"
+backend = "antigravity"
+display_name = "Antigravity account 1 -- REPLACE ME"
+email_hint = "antigravity.one@example.com"
+selector = "primary"
+auth_strategy = "isolated_launcher"
+launcher = "~/.local/bin/agy-account-1"
+login_hint = '$HOME/.local/bin/agy-account-1'
+enabled = true
+notes = "Primary Antigravity account. Replace email_hint and provide an isolated launcher whose OS keyring is already authenticated."
+
+[[profiles]]
+id = "antigravity-secondary"
+backend = "antigravity"
+display_name = "Antigravity account 2 -- REPLACE ME"
+email_hint = "antigravity.two@example.com"
+selector = "secondary"
+auth_strategy = "isolated_launcher"
+launcher = "~/.local/bin/agy-account-2"
+login_hint = '$HOME/.local/bin/agy-account-2'
+enabled = true
+notes = "Backup Antigravity account. Keep credentials in the OS keyring, never in this repository."
