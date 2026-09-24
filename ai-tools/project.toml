@@ -1,8 +1,8 @@
 schema_version = 5
 
 [project]
-name = "CHANGE_ME"
-package = "project_code"
+name = "landau_jko"
+package = "landau_jko"
 description = "Replace with the project-specific objective."
 
 [workflow]

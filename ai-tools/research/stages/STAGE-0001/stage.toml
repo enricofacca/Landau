@@ -4,7 +4,7 @@ title = "Initial development stage"
 status = "active"
 created = "TEMPLATE"
 updated = "TEMPLATE"
-base_ref = "TEMPLATE"
+base_ref = "e7c522c29e142c56f70adb0ea9f0211592a85440"
 inherits = []
 
 [goal]

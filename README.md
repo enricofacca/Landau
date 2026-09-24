@@ -1,4 +1,4 @@
-# CHANGE_ME
+# landau_jko
 
 Standard Python project layout. The public/user-facing software lives in `src/`, with tests in `tests/` and runnable examples in `demos/`.
 

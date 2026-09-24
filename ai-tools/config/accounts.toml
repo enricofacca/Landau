@@ -37,19 +37,19 @@ respect_provider_terms = true
 id = "codex-pool"
 backend = "codex"
 strategy = "ordered"
-profiles = ["codex-primary", "codex-secondary"]
+profiles = ["codex-personal", "codex-unife"]
 
 [[pools]]
 id = "claude-pool"
 backend = "claude"
 strategy = "ordered"
-profiles = ["claude-personal", "claude-team"]
+profiles = ["claude-unife", "claude-adamus"]
 
 [[pools]]
 id = "antigravity-pool"
 backend = "antigravity"
 strategy = "ordered"
-profiles = ["antigravity-primary", "antigravity-secondary"]
+profiles = ["antigravity-personal", "antigravity-unife"]
 
 # -----------------------------------------------------------------------------
 # CODEX EXAMPLES
@@ -62,10 +62,10 @@ profiles = ["antigravity-primary", "antigravity-secondary"]
 # -----------------------------------------------------------------------------
 
 [[profiles]]
-id = "codex-primary"
+id = "codex-personal"
 backend = "codex"
-display_name = "Codex account 1 -- REPLACE ME"
-email_hint = "codex.one@example.com"
+display_name = "enrico.facca"
+email_hint = "enrico.facca@gmail.com"
 selector = "primary"
 auth_strategy = "codex_home"
 auth_context = "~/.agent-accounts/codex/account-1"
@@ -74,10 +74,10 @@ enabled = true
 notes = "Primary Codex subscription/account. Replace email_hint; authenticate this CODEX_HOME once via browser."
 
 [[profiles]]
-id = "codex-secondary"
+id = "codex-unife"
 backend = "codex"
-display_name = "Codex account 2 -- REPLACE ME"
-email_hint = "codex.two@example.com"
+display_name = "fccnrc"
+email_hint = "fccnrc@unife.it"
 selector = "secondary"
 auth_strategy = "codex_home"
 auth_context = "~/.agent-accounts/codex/account-2"
@@ -98,12 +98,12 @@ notes = "Backup Codex subscription/account. Use only where the provider/account 
 # -----------------------------------------------------------------------------
 
 [[profiles]]
-id = "claude-personal"
+id = "claude-unife"
 backend = "claude"
-display_name = "Claude personal subscription -- REPLACE ME"
-email_hint = "claude.same.user@example.com"
+display_name = "fccnrc"
+email_hint = "fccnrc@unife.it"
 account_scope = "personal"
-workspace_hint = "Personal Pro/Max -- REPLACE ME"
+workspace_hint = "Personal Pro"
 selector = "personal"
 auth_strategy = "claude_config_dir"
 auth_context = "~/.agent-accounts/claude/personal"
@@ -114,10 +114,10 @@ notes = "Same email may also own a Team seat. Authenticate this config dir again
 [[profiles]]
 id = "claude-team"
 backend = "claude"
-display_name = "Claude Team subscription -- REPLACE ME"
-email_hint = "claude.same.user@example.com"
+display_name = "fccnrc_adamus"
+email_hint = "fccnrc@unife.it"
 account_scope = "team"
-workspace_hint = "Example Research Team -- REPLACE ME"
+workspace_hint = "Example Research Team"
 selector = "team"
 auth_strategy = "claude_config_dir"
 auth_context = "~/.agent-accounts/claude/team"
@@ -141,10 +141,10 @@ notes = "Same login email as claude-personal, but authorize/select the Team work
 # -----------------------------------------------------------------------------
 
 [[profiles]]
-id = "antigravity-primary"
+id = "antigravity-personal"
 backend = "antigravity"
-display_name = "Antigravity account 1 -- REPLACE ME"
-email_hint = "antigravity.one@example.com"
+display_name = "enrico.facca"
+email_hint = "enrico.facca@gmail.com"
 selector = "primary"
 auth_strategy = "isolated_launcher"
 launcher = "~/.local/bin/agy-account-1"
@@ -153,10 +153,10 @@ enabled = true
 notes = "Primary Antigravity account. Replace email_hint and provide an isolated launcher whose OS keyring is already authenticated."
 
 [[profiles]]
-id = "antigravity-secondary"
+id = "antigravity-unife"
 backend = "antigravity"
-display_name = "Antigravity account 2 -- REPLACE ME"
-email_hint = "antigravity.two@example.com"
+display_name = "fccnrc"
+email_hint = "fccnrc@unife.ite"
 selector = "secondary"
 auth_strategy = "isolated_launcher"
 launcher = "~/.local/bin/agy-account-2"

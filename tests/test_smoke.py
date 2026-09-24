@@ -1,4 +1,4 @@
-from project_code import identity
+from landau_jko import identity
 
 def test_template_import():
     assert identity("ok") == "ok"
